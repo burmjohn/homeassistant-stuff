@@ -11,7 +11,7 @@ blueprint:
           integration: zwave_js
           manufacturer: UltraPro
           model: 39351 / ZW3010
-   scene_1:
+    scene_1:
       name: Scene 1 - Pressed Once
       description: Action to run when button is pressed once.
       default: []
