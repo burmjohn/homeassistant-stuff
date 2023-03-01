@@ -58,7 +58,7 @@ variables:
 trigger:
 - platform: event
   event_type: zwave_js_value_notification
-condition: '{{ trigger.event.data.device_id == controller_id and trigger.event.data.property_key_name == button_id }}'
+condition: '{{ trigger.event.data.device_id == controller_id }}'
 action:
 - variables:
     property_key_name: '{{ trigger.event.data.property_key_name }}'
