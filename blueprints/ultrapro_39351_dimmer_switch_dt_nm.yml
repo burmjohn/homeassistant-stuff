@@ -70,29 +70,24 @@ action:
     name: 'Z-Wave JS'
     message: 'received event: {{ command_class_name }} - {{ value }} - {{ label }}'
 - choose:
-  - conditions: '{{ property_key_name == ''001'' and value == ''KeyPressed'' }}'
-    sequence:
-      - service: light.turn_on
-        data: {}
-        target: !input 'target_light'
   - conditions: '{{  property_key_name == ''001'' and value == ''KeyPressed2x'' }}'
     sequence:
       - service: light.turn_on
         data:
           brightness_pct: 100
         target: !input 'target_light'
-  - conditions: '{{ property_key_name == ''001'' and value == ''KeyHeldDown'' }}'
+  - conditions: '{{ property_key_name == ''001'' and value == ''KeyPressed3x'' }}'
     sequence:
       - service: light.turn_on
         data:
           brightness_pct: '{{ night_light_brightness }}'
         target: !input 'target_light'
-  - conditions: '{{ property_key_name == ''002'' and value == ''KeyPressed'' }}'
+  - conditions: '{{ property_key_name == ''002'' and value == ''KeyPressed2x'' }}'
     sequence:
-      - service: light.turn_on
+      - service: light.off
         data: {}
         target: !input 'target_light'
-  - conditions: '{{ property_key_name == ''002'' and value == ''KeyHeldDown'' }}'
+  - conditions: '{{ property_key_name == ''002'' and value == ''KeyPressed3x'' }}'
     sequence:
       - service: light.turn_on
         data:
