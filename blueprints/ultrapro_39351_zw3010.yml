@@ -1,6 +1,6 @@
 blueprint:
   name: 39351 / ZW3010 (Z-Wave JS)
-  description: Create automations for the UltraPro 39351 / ZW3010 Dimmer using the Z-Wave JS integration.
+  description: Create automations for the UltraPro 39351 / ZW3010 Dimmer using the Z-Wave JS integration. Built on what was started here https://community.home-assistant.io/t/zen32-scene-controller-z-wave-js/292610
   domain: automation
   input:
     ultrapro_dimmer:

@@ -54,6 +54,7 @@ variables:
   light_id: !input 'target_light'
   button_id: !input 'scene_button'
   night_light_brightness: !input 'night_light_brightness'
+  normal_light_brightness: !input 'normal_light_brightness'
 trigger:
 - platform: event
   event_type: zwave_js_value_notification
