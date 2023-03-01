@@ -74,27 +74,27 @@ action:
     sequence:
       - service: light.turn_on
         data: {}
-        target: !input 'ultrapro_dimmer'
+        target: !input 'controller_id'
   - conditions: '{{  property_key_name == ''001'' and value == ''KeyPressed2x'' }}'
     sequence:
       - service: light.turn_on
         data:
           brightness_pct: 100
-        target: !input 'ultrapro_dimmer'
+        target: !input 'controller_id'
   - conditions: '{{ property_key_name == ''001'' and value == ''KeyHeldDown'' }}'
     sequence:
       - service: light.turn_on
         data:
           brightness_pct: '{{ night_light_brightness }}'
-        target: !input 'ultrapro_dimmer'
+        target: !input 'controller_id'
   - conditions: '{{ property_key_name == ''002'' and value == ''KeyPressed'' }}'
     sequence:
       - service: light.turn_on
         data: {}
-        target: !input 'ultrapro_dimmer'
+        target: !input 'controller_id'
   - conditions: '{{ property_key_name == ''002'' and value == ''KeyHeldDown'' }}'
     sequence:
       - service: light.turn_on
         data:
           brightness_pct: '{{ normal_light_brightness }}'
-        target: !input 'ultrapro_dimmer'
+        target: !input 'controller_id'
