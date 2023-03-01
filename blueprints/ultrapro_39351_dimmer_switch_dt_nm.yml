@@ -1,6 +1,6 @@
 blueprint:
   name: Control UltraPro Dimmer
-  description: For UltraPro 39351 dimmer. Toggle a light with a single press, set it to max brightness with double-tap on, night-light mode with hold. Beta
+  description: For UltraPro 39351 dimmer. Toggle a light with a single press, set it to max brightness with double-tap on, night-light mode with hold.
   domain: automation
   input:
     ultrapro_dimmer:
