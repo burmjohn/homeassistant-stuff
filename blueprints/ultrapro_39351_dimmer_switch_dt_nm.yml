@@ -10,7 +10,7 @@ blueprint:
         device:
           integration: zwave_js
           manufacturer: UltraPro
-          model: 39351 #/ ZW3010
+          model: 39351 / ZW3010
     # target_light:
     #   name: Light
     #   description: The light to link to button
