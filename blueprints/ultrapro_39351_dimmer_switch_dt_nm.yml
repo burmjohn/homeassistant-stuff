@@ -11,13 +11,13 @@ blueprint:
           integration: zwave_js
           manufacturer: UltraPro
           model: 39351 / ZW3010
-    # target_light:
-    #   name: Light
-    #   description: The light to link to button
-    #   selector:
-    #     target:
-    #       entity:
-    #         domain: light
+    target_light:
+      name: Light
+      description: The light to link to button
+      selector:
+        target:
+          entity:
+            domain: light
     # scene_button:
     #   name: Scene Button
     #   description: The button to link to light
@@ -51,7 +51,7 @@ mode: single
 max_exceeded: silent
 variables:
   controller_id: !input 'ultrapro_dimmer'
-  # light_id: !input 'target_light'
+  light_id: !input 'target_light'
   # button_id: !input 'scene_button'
   night_light_brightness: !input 'night_light_brightness'
   normal_light_brightness: !input 'normal_light_brightness'
@@ -72,29 +72,29 @@ action:
 - choose:
   - conditions: '{{ property_key_name == ''001'' and value == ''KeyPressed'' }}'
     sequence:
-      - service: controller.turn_on
+      - service: light.turn_on
         data: {}
-        target: !input 'ultrapro_dimmer'
+        target: !input 'target_light'
   - conditions: '{{  property_key_name == ''001'' and value == ''KeyPressed2x'' }}'
     sequence:
-      - service: controller.turn_on
+      - service: light.turn_on
         data:
           brightness_pct: 100
-        target: !input 'ultrapro_dimmer'
+        target: !input 'target_light'
   - conditions: '{{ property_key_name == ''001'' and value == ''KeyHeldDown'' }}'
     sequence:
-      - service: controller.turn_on
+      - service: light.turn_on
         data:
           brightness_pct: '{{ night_light_brightness }}'
-        target: !input 'ultrapro_dimmer'
+        target: !input 'target_light'
   - conditions: '{{ property_key_name == ''002'' and value == ''KeyPressed'' }}'
     sequence:
-      - service: controller.turn_on
+      - service: light.turn_on
         data: {}
-        target: !input 'ultrapro_dimmer'
+        target: !input 'target_light'
   - conditions: '{{ property_key_name == ''002'' and value == ''KeyHeldDown'' }}'
     sequence:
-      - service: controller.turn_on
+      - service: light.turn_on
         data:
           brightness_pct: '{{ normal_light_brightness }}'
-        target: !input 'ultrapro_dimmer'
+        target: !input 'target_light'
