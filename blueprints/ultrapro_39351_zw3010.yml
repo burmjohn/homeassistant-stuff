@@ -1,0 +1,113 @@
+blueprint:
+  name: 39351 / ZW3010 (Z-Wave JS)
+  description: Create automations for the UltraPro 39351 / ZW3010 Dimmer using the Z-Wave JS integration.
+  domain: automation
+  input:
+    ultrapro_dimmer:
+      name: UltraPro Dimmer
+      description: List of available UltraPro 39351 / ZW3010 Dimmers.
+      selector:
+        device:
+          integration: zwave_js
+          manufacturer: UltraPro
+          model: 39351 / ZW3010
+   scene_1:
+      name: Scene 1 - Pressed Once
+      description: Action to run when button is pressed once.
+      default: []
+      selector:
+        action:
+    scene_2:
+      name: Scene 2 - Pressed Once
+      description: Action to run when button is pressed once.
+      default: []
+      selector:
+        action:
+    scene_1h:
+      name: Scene 1 - Held
+      description: Action to run when button is held.
+      default: []
+      selector:
+        action:
+    scene_2h:
+      name: Scene 2 - Held
+      description: Action to run when button is held.
+      default: []
+      selector:
+        action:
+    scene_1r:
+      name: Scene 1 - Released
+      description: Action to run when button is released.
+      default: []
+      selector:
+        action:
+    scene_2r:
+      name: Scene 2 - Released
+      description: Action to run when button is released.
+      default: []
+      selector:
+        action:
+    scene_12:
+      name: Scene 1 - Pressed 2x
+      description: Action to run when button is pressed twice.
+      default: []
+      selector:
+        action:
+    scene_22:
+      name: Scene 2 - Pressed 2x
+      description: Action to run when button is pressed twice.
+      default: []
+      selector:
+        action:
+    scene_13:
+      name: Scene 1 - Pressed 3x
+      description: Action to run when button is pressed three times.
+      default: []
+      selector:
+        action:
+    scene_23:
+      name: Scene 2 - Pressed 3x
+      description: Action to run when button is pressed three times.
+      default: []
+      selector:
+        action:
+  source_url: https://community.home-assistant.io/t/zen32-scene-controller-z-wave-js/292610
+mode: single
+max_exceeded: silent
+variables:
+  device_id: !input 'ultrapro_dimmer'
+trigger:
+- platform: event
+  event_type: zwave_js_value_notification
+condition: '{{ trigger.event.data.device_id == device_id }}'
+action:
+- variables:
+    property_key_name: '{{ trigger.event.data.property_key_name }}'
+    label: '{{ trigger.event.data.label }}'
+    command_class_name: '{{ trigger.event.data.command_class_name }}'
+    value: '{{ trigger.event.data.value }}'
+- service: logbook.log
+  data:
+    name: 'Z-Wave JS'
+    message: 'received event: {{ command_class_name }} - {{ value }} - {{ label }}'
+- choose:
+  - conditions: '{{ property_key_name == ''001'' and value == ''KeyPressed'' }}'
+    sequence: !input 'scene_1'
+  - conditions: '{{ property_key_name == ''001'' and value == ''KeyHeldDown'' }}'
+    sequence: !input 'scene_1h'
+  - conditions: '{{ property_key_name == ''001'' and value == ''KeyReleased'' }}'
+    sequence: !input 'scene_1r'
+  - conditions: '{{ property_key_name == ''001'' and value == ''KeyPressed2x'' }}'
+    sequence: !input 'scene_12'
+  - conditions: '{{ property_key_name == ''001'' and value == ''KeyPressed3x'' }}'
+    sequence: !input 'scene_13'
+  - conditions: '{{ property_key_name == ''002'' and value == ''KeyPressed'' }}'
+    sequence: !input 'scene_2'
+  - conditions: '{{ property_key_name == ''002'' and value == ''KeyHeldDown'' }}'
+    sequence: !input 'scene_2h'
+  - conditions: '{{ property_key_name == ''002'' and value == ''KeyReleased'' }}'
+    sequence: !input 'scene_2r'
+  - conditions: '{{ property_key_name == ''002'' and value == ''KeyPressed2x'' }}'
+    sequence: !input 'scene_22'
+  - conditions: '{{ property_key_name == ''002'' and value == ''KeyPressed3x'' }}'
+    sequence: !input 'scene_23'
